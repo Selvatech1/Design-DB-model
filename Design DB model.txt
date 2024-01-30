@@ -1,0 +1,50 @@
+CREATE TABLE User (
+  UserID INT PRIMARY KEY,
+  FirstName VARCHAR(255),
+  LastName VARCHAR(255),
+  Email VARCHAR(255),
+  Password VARCHAR(255),
+  UserType VARCHAR(20)
+);
+
+CREATE TABLE Course (
+  CourseID INT PRIMARY KEY,
+  CourseName VARCHAR(255),
+  Description TEXT,
+  InstructorID INT,
+  FOREIGN KEY (InstructorID) REFERENCES User(UserID)
+);
+
+CREATE TABLE Lesson (
+  LessonID INT PRIMARY KEY,
+  LessonTitle VARCHAR(255),
+  Content TEXT,
+  CourseID INT,
+  FOREIGN KEY (CourseID) REFERENCES Course(CourseID)
+);
+
+CREATE TABLE Enrollment (
+  EnrollmentID INT PRIMARY KEY,
+  UserID INT,
+  CourseID INT,
+  EnrollmentDate DATE,
+  FOREIGN KEY (UserID) REFERENCES User(UserID),
+  FOREIGN KEY (CourseID) REFERENCES Course(CourseID)
+);
+
+CREATE TABLE Assignment (
+  AssignmentID INT PRIMARY KEY,
+  AssignmentTitle VARCHAR(255),
+  Description TEXT,
+  CourseID INT,
+  FOREIGN KEY (CourseID) REFERENCES Course(CourseID)
+);
+
+CREATE TABLE Submission (
+  SubmissionID INT PRIMARY KEY,
+  UserID INT,
+  AssignmentID INT,
+  SubmissionDate DATE,
+  FOREIGN KEY (UserID) REFERENCES User(UserID),
+  FOREIGN KEY (AssignmentID) REFERENCES Assignment(AssignmentID)
+);
